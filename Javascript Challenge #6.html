@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <title>JavaScript Challenges</title>
+    
+    <style type="text/css">
+	
+	#emailpara {
+	    display: none;
+	}
+
+	.errormsg {
+	    color: red;
+	    font-weight: bold;
+	    display: none;
+	}
+	
+    </style>
+    
+    <script type="text/javascript">
+
+      //TOGGLE EMAIL FIELD
+
+      function toggleEmail() {
+        if(document.getElementById("subscribe").checked) {
+          toggleEmailOn();
+        } else {
+         toggleEmailOff();
+        };
+      };
+
+      function toggleEmailOn() {
+        document.getElementById("emailpara").style.display="inline";
+      };	
+      
+      function toggleEmailOff() {
+        document.getElementById("emailpara").style.display="none";
+      };
+
+      //SET HOME ADDRESS SAME AS POSTAL ADDRESS
+
+      function setHomeAddress() {
+	if (document.getElementById("homepostalcheck").checked) {
+	  document.getElementById("homeaddress").disabled = true;
+	} else {
+	  document.getElementById("homeaddress").disabled = false;
+	};
+
+	document.getElementById("homeaddress").value = document.getElementById("postaladdress").value; 
+      };
+
+      //CHECKS IF FORM IS FILLED OUT AND ALL INPUTS ARE VALID
+
+      function checkForm() {
+	var name = document.getElementById("fullname");
+	var address = document.getElementById("streetaddr");
+	var quantity = document.getElementById("quantity");
+	var email = document.getElementById("emails");
+	var nameError = document.getElementById("nameerrormsg");
+	var addressError = document.getElementById("addrerrormsg");
+	var quantityError = document.getElementById("quantityerrormsg");
+	var quantityNumberError = document.getElementById("quantitynumbererrormsg");
+	var quantityLengthError = document.getElementById("quantitylengtherrormsg");
+	var emailError = document.getElementById("emailerrormsg");
+	var emailSymbolError = document.getElementById("emailsymbolerrormsg");
+	var emailPlaceError = document.getElementById("emailplaceerrormsg");
+	var emailStopError = document.getElementById("emailstoperrormsg");
+	var emailServerError = document.getElementById("emailservererrormsg");
+	var atPos = email.value.indexOf("@");
+	var atPosStop = email.value.lastIndexOf(".");
+	var is_valid = true;
+
+	if (name.value === "") {
+	  nameError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  nameError.style.display="none";
+	}
+
+	if (address.value === "") {
+	  addressError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  addressError.style.display="none";
+	}
+
+	if (quantity.value === "") {
+	  quantityError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  quantityError.style.display="none";
+	}
+
+	if (isNaN(quantity.value)) {
+	  quantityNumberError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  quantityNumberError.style.display="none";
+	}
+
+	if (quantity.value.length > 8) {
+	  quantityLengthError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  quantityLengthError.style.display="none";
+	}
+
+	if (email.value === "") {
+	  emailError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  emailError.style.display="none";
+	}
+
+	if (atPos === -1) {
+	  emailSymbolError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  emailSymbolError.style.display="none";
+	}
+
+	if (atPos === 0) {
+	  emailPlaceError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  emailPlaceError.style.display="none";
+	}
+
+	if (atPos > atPosStop) {
+	  emailStopError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  emailStopError.style.display="none";
+	}
+
+	if(atPosStop < (email.length + 1)) {
+	  emailServerError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  emailServerError.style.display="none";
+	}
+	
+	return is_valid;
+      };
+    
+    </script>
+  </head>
+  <body>
+    <form action="">
+      <fieldset>
+
+        <legend>Email subscriptions</legend>
+
+        <p id="Ross">
+          <label>
+            <input type="checkbox" name="subscribe" id="subscribe" onclick=toggleEmail()>
+            Yes! I would like to receive all of your free candy!
+          </label>
+        </p>
+
+        <p id="emailpara">
+          <label>
+            Email Address: 
+            <input type="text" name="email" id="email">
+          </label>
+        </p>
+
+	</fieldset>
+
+	<fieldset>
+
+ 	<legend>Billing Information</legend>
+
+	 <p>
+           <label>
+             Postal Address:<br>
+             <textarea name="postaladdress" id="postaladdress"></textarea>
+           </label>
+	 </p>
+  
+	 <p>
+           Home Address:<br>
+           <label>
+              <input type="checkbox" name="homepostalcheck" id="homepostalcheck" onclick=setHomeAddress()>
+                 Same as above
+           </label>
+           <br>
+           <textarea name="homeaddress" id="homeaddress"></textarea>
+         </p>
+
+      </fieldset>
+    </form>
+  
+    <form action="mailto:me@fakeemail.com" onsubmit="return checkForm();">
+      <fieldset>
+
+      <legend>Personal details</legend>
+        <p>
+          <label>
+             Full name:
+             <input type="text" name="fullname" id="fullname">
+          </label>
+        </p>
+        <p class="errormsg" id="nameerrormsg">Please enter your name above</p>
+
+        <p>
+          <label>
+            Street Address:
+            <input type="text" name="streetaddr" id="streetaddr">
+          </label>
+        </p>
+        <p class="errormsg" id="addrerrormsg">Please enter your street address</p>
+
+	<p>
+	  <label>
+	    Postal Code:
+	    <input type="text" name="quantity" id="quantity">
+	  </label>
+	</p>
+	<p class="errormsg" id="quantityerrormsg">Please enter your postal code</p>
+	<p class="errormsg" id="quantitynumbererrormsg">Please enter a number</p>
+	<p class="errormsg" id="quantitylengtherrormsg">Your postal code can only go up to 8 digits</p>
+
+	<p>
+	  <label>
+	    Email:
+	    <input type="text" name="emails" id="emails">
+	  </label>
+	</p>
+	<p class="errormsg" id="emailerrormsg">Please enter an email</p>
+	<p class="errormsg" id="emailsymbolerrormsg">Please include the @ symbol in your email address</p>
+	<p class="errormsg" id="emailplaceerrormsg">Please include something before your @ symbol</p>
+	<p class="errormsg" id="emailstoperrormsg">Please include a full stop in the server before your email address</p>
+	<p class="errormsg" id="emailservererrormsg">Please include a server in your email address</p>
+
+      </fieldset>
+      <input type="submit" value="Submit it!">
+    </form>
+
+  </body>
+</html>
+
+
+
+

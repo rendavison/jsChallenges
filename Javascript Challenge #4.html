@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <title>JavaScript Challenges</title>
+    
+    <style type="text/css">
+	
+	#emailpara {
+	    display: none;
+	}
+
+	.errormsg {
+	    color: red;
+	    font-weight: bold;
+	    display: none;
+	}
+	
+    </style>
+    
+    <script type="text/javascript">
+
+      //TOGGLE EMAIL FIELD
+
+      function toggleEmail() {
+        if(document.getElementById("subscribe").checked) {
+          toggleEmailOn();
+        } else {
+         toggleEmailOff();
+        };
+      };
+
+      function toggleEmailOn() {
+        document.getElementById("emailpara").style.display="inline";
+      };	
+      
+      function toggleEmailOff() {
+        document.getElementById("emailpara").style.display="none";
+      };
+
+      //SET HOME ADDRESS SAME AS POSTAL ADDRESS
+
+      function setHomeAddress() {
+	if (document.getElementById("homepostalcheck").checked) {
+	  document.getElementById("homeaddress").disabled = true;
+	} else {
+	  document.getElementById("homeaddress").disabled = false;
+	};
+
+	document.getElementById("homeaddress").value = document.getElementById("postaladdress").value; 
+      };
+
+      //CHECKS IF FORM IS FILLED OUT
+
+      function checkForm() {
+	var name = document.getElementById("fullname");
+	var address = document.getElementById("streetaddr");
+	var nameError = document.getElementById("nameerrormsg");
+	var addressError = document.getElementById("addrerrormsg");
+	var is_valid = true;
+
+	if (name.value === "") {
+	  nameError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  nameError.style.display="none";
+	}
+
+	if (address.value === "") {
+	  addressError.style.display="inline";
+	  is_valid = false;
+	} else {
+	  addressError.style.display="none";
+	}
+	
+	return is_valid;
+      };
+    
+    </script>
+  </head>
+  <body>
+    <form action="">
+      <fieldset>
+
+        <legend>Email subscriptions</legend>
+
+        <p id="Ross">
+          <label>
+            <input type="checkbox" name="subscribe" id="subscribe" onclick=toggleEmail()>
+            Yes! I would like to receive all of your free candy!
+          </label>
+        </p>
+
+        <p id="emailpara">
+          <label>
+            Email Address: 
+            <input type="text" name="email" id="email">
+          </label>
+        </p>
+
+	</fieldset>
+
+	<fieldset>
+
+ 	<legend>Billing Information</legend>
+
+	 <p>
+           <label>
+             Postal Address:<br>
+             <textarea name="postaladdress" id="postaladdress"></textarea>
+           </label>
+	 </p>
+  
+	 <p>
+           Home Address:<br>
+           <label>
+              <input type="checkbox" name="homepostalcheck" id="homepostalcheck" onclick=setHomeAddress()>
+                 Same as above
+           </label>
+           <br>
+           <textarea name="homeaddress" id="homeaddress"></textarea>
+         </p>
+
+      </fieldset>
+    </form>
+  
+    <form action="mailto:me@fakeemail.com" onsubmit="return checkForm();">
+      <fieldset>
+
+      <legend>Personal details</legend>
+        <p>
+          <label>
+             Full name:
+             <input type="text" name="fullname" id="fullname">
+          </label>
+        </p>
+        <p class="errormsg" id="nameerrormsg">Please enter your name above</p>
+
+        <p>
+          <label>
+            Street Address:
+            <input type="text" name="streetaddr" id="streetaddr">
+          </label>
+        </p>
+        <p class="errormsg" id="addrerrormsg">Please enter your street address</p>
+
+      </fieldset>
+      <input type="submit" value="Submit it!">
+    </form>
+
+  </body>
+</html>
+
+
+
+
